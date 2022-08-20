@@ -1,0 +1,94 @@
+:root {
+  --line-gap: 1em;
+  --line-height: 0.5em;
+}
+
+body {
+  min-height: 100vh;
+  background: hsl(0, 0%, 23%);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.card {
+  background: #3FAF82;
+  height: 25em;
+  aspect-ratio: 1;
+  border-radius: 0.5rem;
+  display: grid;
+  place-items: center;
+}
+
+.hamburger {
+  position: relative;
+}
+
+#btnControl {
+  display: none;
+}
+
+.line {
+  background: white;
+  height: var(--line-height);
+  width: 5rem;
+  border-radius: 0.175rem;
+  box-shadow: 0 0 0.5rem 0.1rem hsla(0, 0%, 23%, 0.4);
+  /* position: absolute; */
+}
+
+.line:nth-child(1) {
+  --spin-direction: 135deg;
+  --y-offset: 0.5em;
+  transform: translateY(calc(-1 * var(--line-gap)));
+}
+.line:nth-child(2) {
+  --spin-direction: 0;
+  --y-offset: 0;
+  --scale: 0;
+}
+.line:nth-child(3) {
+  --spin-direction: 45deg;
+  --y-offset: -0.5em;
+  transform: translateY(var(--line-gap));
+}
+
+#btnControl + label > .hamburger:hover {
+  cursor: pointer;
+}
+
+#btnControl:checked + label > .hamburger > .line {
+  animation: burger-forwards 500ms forwards;
+}
+
+#btnControl:not(:checked) + label > .hamburger > .line {
+  animation: burger-backwards 500ms forwards;
+}
+
+@keyframes burger-forwards {
+  0% {
+  }
+  50% {
+    transform: translateY(var(--y-offset))
+      scale(var(--scale, 1));
+  }
+  100% {
+    transform: translateY(var(--y-offset))
+      rotate(var(--spin-direction))
+      scale(var(--scale, 1));
+  }
+}
+
+@keyframes burger-backwards {
+  0% {
+    transform: translateY(var(--y-offset))
+    rotate(var(--spin-direction))
+    scale(var(--scale, 1));
+  }
+  50% {
+    transform: translateY(var(--y-offset))
+      scale(var(--scale, 1));
+  }
+  100% {
+  }
+}
